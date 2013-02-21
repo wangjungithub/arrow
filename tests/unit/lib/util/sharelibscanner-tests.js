@@ -8,10 +8,10 @@
 
 YUI.add('sharelibscanner-tests', function (Y) {
 
-    var path = require('path'),
-        fs = require('fs');
+    var path = require('path');
     global.appRoot = path.join(__dirname, '../../../..');
-    var arrowRoot = global.appRoot,
+    var fs = require('fs'),
+        arrowRoot = global.appRoot,
         sharelibScanner = require(arrowRoot+'/lib/util/sharelibscanner.js'),
         suite = new Y.Test.Suite("Share Lib Scanner test suite");
 
