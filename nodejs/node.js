@@ -82,6 +82,7 @@ function runTest() {
     ARROW.testScript = "";
     ARROW.scriptType = "test";
     ARROW.shareLibServerSeed = shareLibServerSeed;
+	ARROW.testfile=testFile;
     ARROW.onSeeded = function () {
         var depFile,
             i;
@@ -99,6 +100,8 @@ function runTest() {
     };
 
     require(seed);
+	console.log(seed);
+	console.log(runner);
 }
 
 if (coverageFlag) {
