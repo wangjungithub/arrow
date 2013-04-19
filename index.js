@@ -8,15 +8,35 @@
  * See the accompanying LICENSE file for terms.
  */
 
+//expose classes for test/external usage
+this.controller = require('./lib/interface/controller');
+this.log4js = require('log4js');
+
+//setting appRoot
+if (global.appRoot) {
+    if (global.appRoot !== __dirname) {
+        var logger = this.log4js.getLogger("Arrow");
+        logger.fatal("");
+        logger.fatal("You have multiple arrow installations. The arrow instance you executed, is not the one your custom controller requiring.");
+        logger.fatal("This will make the arrow run time enviroment becomes messy.");
+        logger.fatal("...");
+        logger.fatal("... Your arrow executation is: " + global.appRoot);
+        logger.fatal("... Your custom controller requires arrow from: " + __dirname);
+        logger.fatal("...");
+        logger.fatal("Please double check your arrow installation and execution.");
+        logger.fatal("");
+        process.exit(0);
+    }
+} else {
+    global.appRoot = __dirname;
+}
+
 var Arrow = require("./lib/interface/arrow");
 var ArrowSetup = require('./lib/util/arrowsetup');
 var nopt = require("nopt");
 var Properties = require("./lib/util/properties");
 var fs = require("fs");
 var path = require("path");
-
-//setting appRoot
-global.appRoot = __dirname;
 
 //recording currentFolder
 global.workingDirectory = process.cwd();
@@ -177,10 +197,6 @@ if (argv.argv.remain.length === 0 && argv.descriptor) {
 
 //store start time
 global.startTime = Date.now();
-
-//expose classes for test/external usage
-this.controller = require('./lib/interface/controller');
-this.log4js = require('log4js');
 
 //check if user wants to override default config.
 if (!argv.config) {
