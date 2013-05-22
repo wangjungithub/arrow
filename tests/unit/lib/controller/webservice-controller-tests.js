@@ -32,7 +32,7 @@ YUI.add('webservice-controller-tests', function (Y, NAME) {
                     executed = true;
                 });
             });
-            self.wait(5000);
+            self.wait(8000);
             A.isTrue(executed, 'Shall have been executed successfully');
         },
 
@@ -50,7 +50,7 @@ YUI.add('webservice-controller-tests', function (Y, NAME) {
                     A.isString(errMsg, 'Only json or xml content type is supported');
                 });
             });
-            self.wait(5000);
+            self.wait(8000);
             A.isTrue(executed, 'Shall have been executed successfully');
         },
 
@@ -67,7 +67,7 @@ YUI.add('webservice-controller-tests', function (Y, NAME) {
                     executed = true;
                 });
             });
-            self.wait(5000);
+            self.wait(8000);
             A.isTrue(executed, 'Shall have been executed successfully');
         }
     }));

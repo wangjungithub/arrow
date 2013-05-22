@@ -13,7 +13,7 @@ YUI.add('mock-child-process-tests', function (Y, NAME) {
         name:'child process mocker functionnal Tests',
 
         // seems like spawn child_process is not supported in travisCI
-        "ignore: test mocked child_process.spawn": function () {
+        "test mocked child_process.spawn": function () {
             var mockery = require('mockery');
             var mock_child_process = {
                spawn: mocker.spawn
@@ -39,13 +39,14 @@ YUI.add('mock-child-process-tests', function (Y, NAME) {
                 executed = true;
             });
 
-            this.wait(function () {}, 6000);
+            this.wait(function () {}, 8000);
             Y.Assert.isTrue(executed, 'Should have successfully executed child process');
 
             var fs = require("fs");
             var path = require('path');
             var existsSync = path.existsSync || fs.existsSync;
             Y.Assert.isTrue(existsSync(__dirname + "/data/temp-for-coverage-child.js"), 'Should have successfully generated new child.js with header injected');
+            mockery.disable();
         }
     });
 
