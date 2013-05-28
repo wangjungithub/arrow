@@ -12,8 +12,8 @@ YUI.add("test-webdriver-tests", function (Y) {
             var Controller = require("yahoo-arrow").controller;
             var arrow_controller= new Controller(null, null, null);
 
-            var webdriver1 = arrow_controller.getWebDriverInstance({browserName: "firefox"});
-            var webdriver2 = arrow_controller..getWebDriverInstance({browserName: "firefox"});
+            var webdriver1 = arrow_controller.createWebDriver({browserName: "firefox"});
+            var webdriver2 = arrow_controller.createWebDriver({browserName: "firefox"});
 
             webdriver1.get('http://www.google.com');
             webdriver1.findElement(webdriver1.By.name('q')).sendKeys('webdriver dsafsafasfsdafsa');
