@@ -1,0 +1,28 @@
+[
+    {
+        "settings": [ "master" ],
+        "name": "YahooLogin",
+        "config": {
+            "baseUrl": "http://www.yahoo.com"
+        },
+        "dataprovider" : {
+
+            "Use Locator to Login" : {
+                "group" : "func",
+                "params" :{
+                    "scenario": [
+                        {
+                            "controller": "./vm.js",
+                            "params": {
+                                "webdriverjs": "./wd.js"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "settings": [ "environment:development" ]
+    }
+]
