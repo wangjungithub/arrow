@@ -3,7 +3,7 @@
         "settings": [ "master" ],
         "name": "YahooLogin",
         "config": {
-            "baseUrl": "http://www.facebook.com"
+            "baseUrl": "http://www.yahoo.com"
         },
         "dataprovider" : {
 
@@ -15,91 +15,15 @@
                             "page": "$$config.baseUrl$$"
                         },
                         {
-                            "controller": "locator",
+                            "controller": "./sessiongroup.js",
                             "params": {
-                                "value": "#email",
-                                "text": "arrowfunc1@gmail.com"
-                            }
-                        },
-                        {
-                            "controller": "locator",
-                            "params": {
-                                "value": "#pass",
-                                "text": "yahoo12425"
-                            }
-                        },
-                        {
-                            "controller": "locator",
-                            "params": {
-                                "value": "#loginbutton",
-                                "click": true
-                            }
-                        },
-                        {
-                            "controller": "locator",
-                            "params": {
-                                "using": "xpath",
-                                "value": "//*[@id=\"pageNav\"]/li[1]/a/span",
-                                "click": true
+                                "page1": "http://sports.yahoo.com",
+                                "page2": "http://www.flickr.com"
                             }
                         },
                         {
                             "test": "../test-title.js",
-                            "title": "Peter Walker"
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "one",
-                                "page": "http://www.facebook.com"
-                            }
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "one",
-                                "value": "#email",
-                                "text": "arrowfunc2@gmail.com"
-                            }
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "one",
-                                "value": "#pass",
-                                "text": "yahoo12425"
-                            }
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "one",
-                                "value": "#loginbutton",
-                                "click": true
-                            }
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "one",
-                                "using": "xpath",
-                                "value": "//*[@id=\"pageNav\"]/li[1]/a/span",
-                                "click": true
-                            }
-                        },
-                        {
-                            "page": "http://www.facebook.com/?sk=ff"
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "webdriver": "two",
-                                "page": "http://www.yahoo.com"
-                            }
-                        },
-                        {
-                            "test": "../test-title.js",
-                            "title": "Peter Walker"
+                            "title": "Yahoo!"
                         }
                     ]
                 }

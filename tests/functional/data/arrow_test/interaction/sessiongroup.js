@@ -39,83 +39,28 @@ SessionGroupController.prototype.execute = function (callback) {
         stay,
         waitForElement,
         elem,
-        driver,
         page,
         done;
 
     try {
 
-        driver = params["webdriver"];
-        if (driver) {
-            webdriver = self.driver.createAdditionalWebDriver(driver);
-        } else {
-            webdriver = self.driver.webdriver;
-        }
-        if (!webdriver) {
+        var webdriver_builtin  = self.driver.webdriver;
+
+        if (!webdriver_builtin) {
             callback("sessiongroup controller is only supported for the selenium driver");
             return;
         }
 
-        page = params["page"];
-        if (page) {
-            webdriver.get(page);
-            callback();
-        }
+        // you can create more webdrivers here
+        var webdriver_ext_one = self.driver.createAdditionalWebDriver("one");
+        var webdriver_ext_two = self.driver.createAdditionalWebDriver("two");
 
-        done = function() {
-            logger.info("done");
-            callback();
-        };
+        // then you can do selenium session interaction here
+        // ...
+        webdriver_ext_one.get(params.page1);
+        webdriver_ext_two.get(params.page2);
 
-        target = params["value"];
-
-        strategy = params["using"];
-
-        if (!strategy) {
-            strategy = "css";
-        }
-
-        stay = params["stay"];
-        if (!stay) {
-            stay = false;
-        }
-
-        waitForElement = params["waitForElement"];
-
-        locator = webdriver.By[strategy](target);
-        function findAndAct() {
-            if (!target) {
-                callback("\"value\" parameter is required");
-                return;
-            }
-            elem = webdriver.findElement(locator);
-            logger.info("Finding element: By " + strategy + " (" + target + ")");
-            if (true === params["click"]) {
-                if (stay) {
-                    elem.click().then(done);
-                } else if (waitForElement) {
-                    elem.click();
-                    webdriver.waitForElementPresent(webdriver.By.css(waitForElement)).then(done);
-                } else {
-                    elem.click();
-                    webdriver.waitForNextPage().then(done);
-                }
-            } else {
-                var sendKeys = params["text"];
-                if (sendKeys) {
-                    elem.clear();
-                    elem.sendKeys(sendKeys).then(done);
-                } else {
-                    done();
-                }
-            }
-        }
-
-        if (true === params["wait"]) {
-            webdriver.waitForElementPresent(locator).then(findAndAct);
-        } else if (!page) {
-            findAndAct();
-        }
+        callback();
     } catch (e) {
         self.logger.error(e.toString());
         callback(e);
