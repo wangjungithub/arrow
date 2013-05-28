@@ -9,43 +9,31 @@ YUI.add("test-webdriver-tests", function (Y) {
 
         "test title": function() {
             var self = this;
-            var controller = require("yahoo-arrow").controller;
-            var arrow_driver = new controller(null, null, null);
+            var Controller = require("yahoo-arrow").controller;
+            var arrow_controller= new Controller(null, null, null);
 
-            var driver = arrow_driver.getWebDriverInstance({browserName: "firefox"});
-            var driver2 = arrow_driver.getWebDriverInstance({browserName: "firefox"});
+            var webdriver1 = arrow_controller.getWebDriverInstance({browserName: "firefox"});
+            var webdriver2 = arrow_controller..getWebDriverInstance({browserName: "firefox"});
 
-            driver.get('http://www.google.com');
-            driver.findElement(driver.By.name('q')).sendKeys('webdriver dsafsafasfsdafsa');
-            driver.findElement(driver.By.name('btnK')).click();
+            webdriver1.get('http://www.google.com');
+            webdriver1.findElement(webdriver1.By.name('q')).sendKeys('webdriver dsafsafasfsdafsa');
+            webdriver1.findElement(webdriver1.By.name('btnK')).click();
 
-            driver.getTitle().then(function(title) {
+            webdriver1.getTitle().then(function(title) {
                 self.resume(function () {
                     Y.Assert.areEqual(title, "Google");
-                    driver2.get('http://www.facebook.com');
-                    driver2.getTitle().then(function(title) {
+                    webdriver2.get('http://www.facebook.com');
+                    webdriver2.getTitle().then(function(title) {
                         self.resume(function () {
                             Y.Assert.areEqual(title, "Welcome to Facebook - Log In, Sign Up or Learn More");
-                            driver2.quit();
-                            driver.quit();
+                            webdriver2.quit();
+                            webdriver.quit();
                         });
                     });
                     self.wait(9000);
                 });
             });
             self.wait(9000);
-
-/*
-            driver2.get('http://www.facebook.com');
-            driver2.getTitle().then(function(title) {
-                self.resume(function () {
-                    Y.Assert.areEqual(title, "Not Facebook");
-                });
-            });
-            self.wait(9000);
-            driver.quit();
-            driver2.quit();
-*/
         }
     }));
 
