@@ -60,6 +60,19 @@ SessionGroupController.prototype.execute = function (callback) {
         webdriver_ext_one.get(params.page1);
         webdriver_ext_two.get(params.page2);
 
+        //do some operation on page A
+        //webdriver_ext_one.by...click();
+
+        //verify on page B
+        self.testParams.test = "/path/to/verify-received-message.js";
+        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver_ext_two);
+
+        //do some operation on page B
+        //webdriver_ext_two.by...click();
+
+        self.testParams.test = "/path/to/verify-received-comment.js";
+        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver_ext_one);
+
         callback();
     } catch (e) {
         self.logger.error(e.toString());
