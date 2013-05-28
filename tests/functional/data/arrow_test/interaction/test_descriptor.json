@@ -10,22 +10,7 @@
             "Use Locator to Login" : {
                 "group" : "func",
                 "params" :{
-                    "scenario": [
-                        {
-                            "page": "$$config.baseUrl$$"
-                        },
-                        {
-                            "controller": "./sessiongroup.js",
-                            "params": {
-                                "page1": "http://sports.yahoo.com",
-                                "page2": "http://www.flickr.com"
-                            }
-                        },
-                        {
-                            "test": "../test-title.js",
-                            "title": "Yahoo!"
-                        }
-                    ]
+                    "test": "./test-wd2.js"
                 }
             }
         }
