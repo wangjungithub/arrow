@@ -9,11 +9,12 @@ YUI.add("test-webdriver-tests", function (Y) {
 
         "test title": function() {
             var self = this;
-            var Controller = require("yahoo-arrow").controller;
-            var arrow_controller= new Controller(null, null, null);
+            var WebDriverManager = require("yahoo-arrow").webdrivermanager;
+            // WebDriverManager need know selenium host, it is passed down in testParams.seleniumHost
+            var webdriver_manager = new WebDriverManager(self.testParams.seleniumHost);
 
-            var webdriver1 = arrow_controller.createWebDriver({browserName: "firefox"});
-            var webdriver2 = arrow_controller.createWebDriver({browserName: "firefox"});
+            var webdriver1 = webdriver_manager.createWebDriver({browserName: "firefox"});
+            var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});
 
             webdriver1.get('http://www.google.com');
             webdriver1.findElement(webdriver1.By.name('q')).sendKeys('webdriver dsafsafasfsdafsa');
@@ -27,7 +28,7 @@ YUI.add("test-webdriver-tests", function (Y) {
                         self.resume(function () {
                             Y.Assert.areEqual(title, "Welcome to Facebook - Log In, Sign Up or Learn More");
                             webdriver2.quit();
-                            webdriver.quit();
+                            webdriver1.quit();
                         });
                     });
                     self.wait(9000);
