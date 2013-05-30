@@ -13,7 +13,7 @@ YUI.add("test-webdriver-tests", function (Y) {
             // WebDriverManager need know selenium host, it is passed down in testParams.seleniumHost
             var webdriver_manager = new WebDriverManager(self.testParams.seleniumHost);
 
-            var webdriver1 = webdriver_manager.createWebDriver({browserName: "firefox"});
+            var webdriver1 = webdriver_manager.createWebDriver({browserName: "chrome"});
             var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});
 
             webdriver1.get('http://www.google.com');
@@ -31,10 +31,12 @@ YUI.add("test-webdriver-tests", function (Y) {
                             webdriver1.quit();
                         });
                     });
-                    self.wait(9000);
+                    self.wait(12000);
                 });
             });
-            self.wait(9000);
+            self.wait(12000);
+
+            self.wait(function () {}, 8000);
         }
     }));
 
