@@ -10,7 +10,7 @@
             "create webdriver in test case" : {
                 "group" : "func",
                 "params" :{
-                    "test": "./test-wd2.js"
+                    "test": "./test-multisessions.js"
                 }
             }
         }

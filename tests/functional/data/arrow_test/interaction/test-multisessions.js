@@ -10,8 +10,9 @@ YUI.add("test-webdriver-tests", function (Y) {
         "test title": function() {
             var self = this;
             var WebDriverManager = require("yahoo-arrow").webdrivermanager;
-            // WebDriverManager need know selenium host, it is passed down in testParams.seleniumHost
-            var webdriver_manager = new WebDriverManager(self.testParams.seleniumHost);
+            // if you are not using the default selenium host, you would need to pass seleniumHost url to WebDriverManager constructor
+            // var webdriver_manager = new WebDriverManager(seleniumHost);
+            var webdriver_manager = new WebDriverManager();
 
             var webdriver1 = webdriver_manager.createWebDriver({browserName: "chrome"});
             var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});

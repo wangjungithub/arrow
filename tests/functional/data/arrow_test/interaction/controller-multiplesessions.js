@@ -10,9 +10,6 @@
  * This custom controller is to test using selenium sessions (by multiple webdrivers)
  * so that they can interact with each other inside a Arrow test session.
  *
- * The code is mostly copied from lib/controller/locator.js, it includes all the
- * functionalities in locator controller, so please see locator controller doc 
- * for detail usage.
 */
 
 var util = require("util");
@@ -30,24 +27,20 @@ util.inherits(SessionGroupController, Controller);
 
 SessionGroupController.prototype.execute = function (callback) {
     var self = this,
-        config = this.testConfig,
-        params = this.testParams,
-        logger = this.logger,
-        webdriver,
-        locator,
-        strategy,
-        target,
-        stay,
-        waitForElement,
-        elem,
-        page,
-        done;
+        params = this.testParams;
 
     try {
+        // we need to use SeleniumDriver::executeTest() in this controller, so we need run this test with driver: selenium 
+        webdriver_builtin = self.driver.getWebDriver();
+        if (!webdriver_builtin) {
+            callback("This controller is only supported for the selenium driver");
+            return;
+        }
+
         // you can create more webdrivers here
-        // WebDriverManager need know selenium host, it is passed down in testParams.seleniumHost
-        var seleniumHost = self.testParams.seleniumHost || "http://localhost:4444/wd/hub";
-        var webdriver_manager = new WebDriverManager(seleniumHost);
+        // if you are not using the default selenium host, you would need to pass seleniumHost url to WebDriverManager constructor
+        // var webdriver_manager = new WebDriverManager(seleniumHost);
+        var webdriver_manager = new WebDriverManager();
 
         var webdriver1 = webdriver_manager.createWebDriver({browserName: "chrome"});
         var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});
@@ -61,16 +54,16 @@ SessionGroupController.prototype.execute = function (callback) {
         //webdriver1.by...click();
 
         //verify on page B
-        self.testParams.test = "../test-title.js";
-        self.testParams.title= "Google";
-        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver1);
+        params.test = "../test-title.js";
+        params.title= "Google";
+        self.driver.executeTest(self.testConfig, params, function(error, report) {}, webdriver1);
 
         //do some operation on page B
         //webdriver2.by...click();
 
-        self.testParams.test = "../test-title.js";
-        self.testParams.title= "Welcome to Facebook - Log In, Sign Up or Learn More";
-        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver2);
+        params.test = "../test-title.js";
+        params.title= "Welcome to Facebook - Log In, Sign Up or Learn More";
+        self.driver.executeTest(self.testConfig, params, function(error, report) {}, webdriver2);
 
 
         setTimeout(function () {
