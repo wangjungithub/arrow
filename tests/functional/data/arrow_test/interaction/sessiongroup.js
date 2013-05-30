@@ -18,6 +18,7 @@
 var util = require("util");
 var log4js = require("yahoo-arrow").log4js;
 var Controller = require("yahoo-arrow").controller;
+var WebDriverManager = require("yahoo-arrow").webdrivermanager;
 
 function SessionGroupController(testConfig, testParams, driver) {
     Controller.call(this, testConfig, testParams, driver);
@@ -43,37 +44,41 @@ SessionGroupController.prototype.execute = function (callback) {
         done;
 
     try {
-
-        var webdriver_builtin  = self.driver.webdriver;
-
-        if (!webdriver_builtin) {
-            callback("sessiongroup controller is only supported for the selenium driver");
-            return;
-        }
-
         // you can create more webdrivers here
-        var webdriver_ext_one = self.driver.createAdditionalWebDriver("one");
-        var webdriver_ext_two = self.driver.createAdditionalWebDriver("two");
+        // WebDriverManager need know selenium host, it is passed down in testParams.seleniumHost
+        var seleniumHost = self.testParams.seleniumHost || "http://localhost:4444/wd/hub";
+        var webdriver_manager = new WebDriverManager(seleniumHost);
+
+        var webdriver1 = webdriver_manager.createWebDriver({browserName: "chrome"});
+        var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});
 
         // then you can do selenium session interaction here
         // ...
-        webdriver_ext_one.get(params.page1);
-        webdriver_ext_two.get(params.page2);
+        webdriver1.get(params.page1);
+        webdriver2.get(params.page2);
 
         //do some operation on page A
-        //webdriver_ext_one.by...click();
+        //webdriver1.by...click();
 
         //verify on page B
-        self.testParams.test = "/path/to/verify-received-message.js";
-        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver_ext_two);
+        self.testParams.test = "../test-title.js";
+        self.testParams.title= "Google";
+        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver1);
 
         //do some operation on page B
-        //webdriver_ext_two.by...click();
+        //webdriver2.by...click();
 
-        self.testParams.test = "/path/to/verify-received-comment.js";
-        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver_ext_one);
+        self.testParams.test = "../test-title.js";
+        self.testParams.title= "Welcome to Facebook - Log In, Sign Up or Learn More";
+        self.driver.executeTest(self.testConfig, self.testParams, function(error, report) {}, webdriver2);
 
-        callback();
+
+        setTimeout(function () {
+                webdriver1.quit();
+                webdriver2.quit();
+                callback();
+            }, 15000
+        );
     } catch (e) {
         self.logger.error(e.toString());
         callback(e);

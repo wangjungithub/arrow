@@ -7,7 +7,7 @@
         },
         "dataprovider" : {
 
-            "Use Locator to Login" : {
+            "create webdriver in test case" : {
                 "group" : "func",
                 "params" :{
                     "test": "./test-wd2.js"

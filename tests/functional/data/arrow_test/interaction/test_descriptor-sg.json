@@ -7,14 +7,18 @@
         },
         "dataprovider" : {
 
-            "run webdriver script in node vm" : {
+            "create webdrivers in custom controller" : {
                 "group" : "func",
                 "params" :{
                     "scenario": [
                         {
-                            "controller": "./vm.js",
+                            "page": "http://www.yahoo.com"
+                        },
+                        {
+                            "controller": "./sessiongroup.js",
                             "params": {
-                                "webdriverjs": "./wd.js"
+                                "page1": "http://www.google.com",
+                                "page2": "http://www.facebook.com"
                             }
                         }
                     ]
