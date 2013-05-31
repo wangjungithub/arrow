@@ -9,10 +9,9 @@ YUI.add("test-webdriver-tests", function (Y) {
 
         "test title": function() {
             var self = this;
-            var WebDriverManager = require("yahoo-arrow").webdrivermanager;
             // if you are not using the default selenium host, you would need to pass seleniumHost url to WebDriverManager constructor
-            // var webdriver_manager = new WebDriverManager(seleniumHost);
-            var webdriver_manager = new WebDriverManager();
+            //var webdriver_manager = new Y.Arrow.WebDriverManager(seleniumHost);
+            var webdriver_manager = new Y.Arrow.WebDriverManager();
 
             var webdriver1 = webdriver_manager.createWebDriver({browserName: "chrome"});
             var webdriver2 = webdriver_manager.createWebDriver({browserName: "firefox"});
@@ -43,5 +42,5 @@ YUI.add("test-webdriver-tests", function (Y) {
 
     //Never "run" the tests, simply add them to the suite. Arrow takes care of running them
     Y.Test.Runner.add(suite);
-}, "0.1", {requires:["test"]});
+}, "0.1", {requires:["test", "arrow"]});
 

@@ -15,7 +15,7 @@
                             "page": "http://www.yahoo.com"
                         },
                         {
-                            "controller": "./sessiongroup.js",
+                            "controller": "./controller-multisessions.js",
                             "params": {
                                 "page1": "http://www.google.com",
                                 "page2": "http://www.facebook.com"

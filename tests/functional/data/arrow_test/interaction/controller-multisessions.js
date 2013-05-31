@@ -17,15 +17,15 @@ var log4js = require("yahoo-arrow").log4js;
 var Controller = require("yahoo-arrow").controller;
 var WebDriverManager = require("yahoo-arrow").webdrivermanager;
 
-function SessionGroupController(testConfig, testParams, driver) {
+function MultiSessionsController(testConfig, testParams, driver) {
     Controller.call(this, testConfig, testParams, driver);
 
-    this.logger = log4js.getLogger("SessionGroupController");
+    this.logger = log4js.getLogger("MultiSessionsController");
 }
 
-util.inherits(SessionGroupController, Controller);
+util.inherits(MultiSessionsController, Controller);
 
-SessionGroupController.prototype.execute = function (callback) {
+MultiSessionsController.prototype.execute = function (callback) {
     var self = this,
         params = this.testParams;
 
@@ -78,4 +78,4 @@ SessionGroupController.prototype.execute = function (callback) {
     }
 };
 
-module.exports = SessionGroupController;
+module.exports = MultiSessionsController;
